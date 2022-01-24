@@ -15,6 +15,8 @@ void setup() {
   indx = 0; // buffer empty
   process = false;
   SPI.attachInterrupt(); // turn on interrupt
+  // turn on interrupts
+  //SPCR |= _BV(SPIE);
 }
 
 ISR (SPI_STC_vect) {// SPI interrupt routine
@@ -27,10 +29,9 @@ ISR (SPI_STC_vect) {// SPI interrupt routine
     //if ( (c == '\r') || (c == '\n') || (c=='\0') ) //check for the end of the word
       process = true;
   }
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-   delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);
-  SPI.transfer ("index ");
+
+  SPDR = 'x';
+
   
   
 }
